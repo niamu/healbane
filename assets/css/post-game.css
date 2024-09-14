@@ -2,12 +2,12 @@
 	display: flex;
 	flex-direction: column;
 	position: relative;
-	width: 2000px;
+	width: 100%;
 	height: 100%;
 	justify-content: center;
 	vertical-align: top;
 	font-family: var(--sans);
-	z-index: 1;
+	overflow-x: hidden;
 }
 
 [data-id=CitadelPostGameScoreboard]::after {
@@ -29,8 +29,26 @@
 }
 
 [data-id=CitadelPostGameScoreboard].Team1Victory {
-	& .nameContainer {
-		flex-direction: row;
+	& [data-id=Team2TitleContainer] {
+		& .VictoryLabel {
+			align-self: end;
+		}
+
+		& .nameContainer {
+			align-self: end;
+		}
+	}
+}
+
+[data-id=CitadelPostGameScoreboard].Team2Victory {
+	& [data-id=Team1TitleContainer] {
+		& .VictoryLabel {
+			align-self: end;
+		}
+
+		& .nameContainer {
+			align-self: end;
+		}
 	}
 }
 
@@ -42,98 +60,13 @@
 	background: linear-gradient(135deg, color-mix(in srgb, var(--team2Color), black 65%), color-mix(in srgb, #333, transparent 65%) );
 }
 
-[data-id=PlayerReportContainer],
-.localplayer [data-id=PlayerReportContainer],
-.CanReportPlayers .localplayer [data-id=PlayerReportContainer],
-.CanReportPlayers .localplayer.PlayerSnippet:hover [data-id=PlayerReportContainer],
-.CanReportPlayers .localplayer.Selected [data-id=PlayerReportContainer],
-.ReportedPlayer [data-id=PlayerReportContainer],
-.ReportedPlayer.PlayerSnippet:hover [data-id=PlayerReportContainer] {
-	display: inline-flex;
-	flex-direction: column;
-	opacity: 1;
-	margin-top: 20px;
-	width: 100%;
-	height: 30px;
-	justify-content: center;
-	filter: brightness(0.5);
-}
-
-[data-id=PlayerReportContainer]:hover {
-	filter: brightness(1.5);
-}
-
-[data-id=ReportPlayerLabel] {
-	flow-children: right;
-	ignore-parent-flow: true;
-	horizontal-align: middle;
-	padding: 3px 10px;
-	border-radius: 3px;
-	background-color: #000000;
-	vertical-align: middle;
-	border: 1px solid var(--offWhite);
-	filter: brightness(0.5);
-}
-
-.localplayer [data-id=ReportPlayerLabel] {
-	visibility: collapse;
-}
-
-.ReportedPlayer [data-id=ReportPlayerLabel] {
-	opacity: 0;
-}
-
-[data-id=ReportPlayerLabel]:hover {
-	filter: brightness(1.3);
-	opacity: 1;
-	background-color: rgb(149, 43, 43);
-	border: 1px solid var(--offWhite);
-}
-
-.reportLabel {
-	font-weight: 500;
-	font-size: 16px;
-	margin-bottom: 2px;
-	color: var(--offWhite);
-	opacity: 0.6;
-}
-
-.reportedLabel {
-	font-weight: 500;
-	font-size: 16px;
-	margin-bottom: 2px;
-	color: var(--offWhite);
-}
-
-[data-id=reportIcon] {
-	display: inline-block;
-	width: 15px;
-	height: 15px;
-	margin-right: 8px;
-	vertical-align: middle;
-	background-image: url("../images/icons/icon_report.svg");
-	background-size: contain;
-	background-repeat: no-repeat;
-	background-position: center;
-	wash-color: offWhite;
-	opacity: 0.7;
-}
-
-[data-id=ReportedPlayerLabel],
-.ReportedPlayer [data-id=ReportPlayerLabel] {
-	visibility: collapse;
-}
-
-.ReportedPlayer [data-id=ReportedPlayerLabel] {
-	visibility: visible;
-}
-
 header {
 	display: flex;
 	flex-direction: row-reverse;
 	justify-content: space-between;
 	align-items: center;
 	padding-inline: 2rem;
+	gap: 1rem;
 	min-height: 80px;
 	background: color-mix(in srgb, var(--offBlack), transparent 63%);
 	color: color-mix(in srgb, var(--offWhite) 20%, transparent);
@@ -146,6 +79,7 @@ header {
 
 	& h1 {
 		text-transform: uppercase;
+		text-align: right;
 	}
 }
 
@@ -174,24 +108,14 @@ header {
 .titleContainer {
 	display: flex;
 	flex-direction: column-reverse;
-	height: 110px;
-}
-
-.TeamNamesContainer {
-	display: flex;
-	justify-content: space-between;
-	width: 100%;
-	align-self: center;
-	max-width: 1600px;
-}
-
-.Team2Victory .TeamNamesContainer {
-	flex-flow: row-reverse;
+	min-height: 110px;
+	padding-inline: 0.5rem;
 }
 
 .nameContainer {
 	display: flex;
 	flex-direction: row-reverse;
+	align-self: flex-start;
 
 	&::before,
 	&::after {
@@ -208,8 +132,10 @@ header {
 	}
 }
 
-[data-id=Team1TitleContainer] .nameContainer::after { display: none }
-[data-id=Team2TitleContainer] .nameContainer::before { display: none }
+.Team1Victory [data-id=Team1TitleContainer] .nameContainer::before { display: none }
+.Team1Victory [data-id=Team2TitleContainer] .nameContainer::after { display: none }
+.Team2Victory [data-id=Team1TitleContainer] .nameContainer::after { display: none }
+.Team2Victory [data-id=Team2TitleContainer] .nameContainer::before { display: none }
 
 [data-id=Team1TitleContainer] .nameContainer::before,
 [data-id=Team1TitleContainer] .nameContainer::after { background: var(--team1Color) }
@@ -321,20 +247,44 @@ header {
 	
 }
 
+.Team1Victory .PlayersContainer {
+	flex-wrap: wrap;
+}
+
 .Team2Victory .PlayersContainer {
-	flex-direction: row-reverse;
+	flex-wrap: wrap-reverse;
 }
 
 .TeamPlayersContainer {
 	display: flex;
+	flex-direction: column;
+	align-self: end;
+
+	& .players {
+		display: flex;
+		flex-direction: row;
+		max-width: 100vw;
+
+		& .scroller {
+			display: flex;
+			flex-direction: row;
+			overflow-x: scroll;
+			padding-inline: 1rem;
+			scroll-padding-inline: 1rem;
+			scroll-snap-type: x mandatory;
+
+			& > * {
+				scroll-snap-align: start;
+			}
+		}
+	}
 }
 
 .PlayerStatsContainer {
 	width: 100%;
 	margin-top: 10px;
-	background-color: offWhite&20;
 	padding: 0px 0px;
-	overflow: noclip;
+	position: relative;
 }
 
 .localplayer .PlayerStatsContainer {
@@ -342,14 +292,19 @@ header {
 }
 
 [data-id=StatsTypeContainer] {
-	margin-top: 223px;
+	align-self: end;
 	margin-left: 20px;
 	margin-right: 20px;
 	padding: 0px 0px;
 	width: 180px;
 	vertical-align: bottom;
-	margin-bottom: 51px;
 	text-transform: uppercase;
+}
+
+
+.Team1Victory [data-id=Team1Players] [data-id=StatsTypeContainer],
+.Team2Victory [data-id=Team2Players] [data-id=StatsTypeContainer] {
+	order: 1;
 }
 
 [data-id=CitadelPostGameScoreboard] .PlayerStatsContainer:hover [data-id=StatsTypeContainer] {
@@ -443,10 +398,10 @@ header {
 }
 
 .PlayerSnippet {
-	flow-children: down;
 	width: 105px;
 	margin-left: 5px;
 	margin-right: 5px;
+	flex-shrink: 0;
 }
 
 .PlayerSnippet.Selected {
@@ -490,8 +445,17 @@ header {
 	flex-direction: column;
 	align-items: center;
 	vertical-align: bottom;
-	margin-bottom: 10px;
-	opacity: 0.3;
+	margin-block: 2rem;
+
+	& button {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		background-color: transparent;
+		opacity: 0.3;
+		cursor: pointer;
+	}
 }
 
 [data-id=SwitchPage] span {
@@ -523,7 +487,7 @@ header {
 	background-repeat: no-repeat;
 }
 
-[data-id=SwitchPage]:hover {
+[data-id=SwitchPage] button:hover {
 	opacity: 0.8;
 }
 
@@ -726,3 +690,25 @@ header {
 [data-id=ArmorProgressBar]::-moz-progress-bar		{ background: linear-gradient(to right, var(--fortitudeBrightColor), var(--fortitudeLightColor)) }
 [data-id=TechProgressBar]::-webkit-progress-value	{ background: linear-gradient(to right, var(--spiritBrightColor), var(--spiritLightColor)) }
 [data-id=TechProgressBar]::-moz-progress-bar		{ background: linear-gradient(to right, var(--spiritBrightColor), var(--spiritLightColor)) }
+
+@media screen and (min-width: 1700px) {
+	.Team2Victory .PlayersContainer {
+		flex-direction: row-reverse;
+	}
+}
+
+@media screen and (max-width: 1700px) {
+	[data-id=StatsTypeContainer] {
+		display: none;
+	}
+	[data-id=StatsTypeContainer].hidden {
+		display: flex !important;
+		width: 140px;
+	}
+}
+
+@media screen and (max-width: 900px) {
+	.scroller {
+		mask-image: linear-gradient(to right, transparent 2%, #000 5%, #000, #000 95%, transparent 98%);
+	}
+}

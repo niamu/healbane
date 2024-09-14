@@ -20,11 +20,13 @@ if System.get_env("PHX_SERVER") do
   config :healbane, HealbaneWeb.Endpoint, server: true
 end
 
-config :healbane, :steam_api_key, System.get_env("STEAM_API_KEY")  ||
-  raise """
-  environment variable STEAM_API_KEY is missing.
-  You can obtain an API key via https://steamcommunity.com/dev/apikey
-  """
+config :healbane,
+       :steam_api_key,
+       System.get_env("STEAM_API_KEY") ||
+         raise("""
+         environment variable STEAM_API_KEY is missing.
+         You can obtain an API key via https://steamcommunity.com/dev/apikey
+         """)
 
 if config_env() == :prod do
   # The secret key base is used to sign/encrypt cookies and other secrets.
