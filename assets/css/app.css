@@ -1,0 +1,23 @@
+@import "reset";
+@import "base";
+@import "post-game";
+
+/*
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+*/
+
+/* This file is for your main application CSS */
+
+pre {
+	overflow: scroll;
+}
+
+a {
+	display: inline-block;
+}
+
+img {
+	display: block;
+}

@@ -1,0 +1,224 @@
+@font-face {
+  font-family: "Retail";
+  font-style: normal;
+  src: url("../fonts/RetailVariable.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Swear Text Demo";
+  src: url("../fonts/SwearText-Regular.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Swear Text Demo";
+  src: url("../fonts/SwearBanner-Bold.woff2") format("woff2");
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: "Forevs";
+  font-style: normal;
+  src: url("../fonts/ForevsVariable-Regular.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Forevs";
+  font-style: italic;
+  src: url("../fonts/ForevsVariable-Italic.woff2") format("woff2");
+}
+
+:root {
+	--sans: Retail, sans-serif;
+	--sansMono: Retail, sans-serif;
+	--serif: Forevs, serif;
+	--baseText: #FFEFD7;
+	--baseBorder: #444444ff;
+	--selectedTextBackgroundColor: #66666633;
+	--goldColor: #FFED79;
+	--blueAPTextColor: #80EEFF;
+	--offWhite: #FFEFD7;
+	--offBlack: #10130D;
+	--silvered: #C6C6C6;
+	--soulColor: #70F8C1;
+	--shardColor: #99FFD6;
+	--brandGreen: #C4FF47;
+	--ritualGreen: #65951D;
+	--ritualGreenLight: #7CBC1D;
+	--geistBookColor: #33A357;
+	--geistBookDarkColor: #0E381B;
+	--buildsColor: #4D7EC8;
+	--buildsDarkColor: #365B92;
+	--buildsLightColor: #85B5FF;
+	--team1Color: #BF9A53;
+	--team1ColorBright: #FBDCA0;
+	--team1ColorDark: #937600;
+	--team1ColorNeutral: #55503E;
+	--team2Color: #5B79E6;
+	--team2ColorBright: #BDCBFF;
+	--team2ColorDark: #4156A0;
+	--team2ColorNeutral: #54596C;
+	--courageLightColor: #FFD18D;
+	--courageBrightColor: #EC9719;
+	--courageColor: #9D620B;
+	--courageDarkColor: #7F540E;
+	--courageDarkerColor: #302306;
+	--fortitudeLightColor: #D3FC96;
+	--fortitudeBrightColor: #7BBA1D;
+	--fortitudeColor: #649717;
+	--fortitudeDarkColor: #4C7113;
+	--fortitudeDarkerColor: #1F3400;
+	--spiritLightColor: #E7C8FF;
+	--spiritBrightColor: #CE90FF;
+	--spiritColor: #8A55B3;
+	--spiritDarkColor: #613484;
+	--spiritDarkerColor: #362147;
+
+	--brandGreen: #C4FF47;
+	--colorCommonOffWhite: rgb(243, 240, 231);
+	--colorCommonOffWhiteA35: rgba(243, 240, 231, 0.35);
+	--colorCommonDarkGray: #2e2c27;
+	--colorCommonDarkestGray: #1a1a1a;
+	--colorEnemy: #FF410D;
+	--colorModsShop: #FFDB79;
+	--colorGold: #FFED79;
+	--colorUpgrades: #00FFFF;
+	--colorTeam1: #E7B659;
+	--colorTeam2: #5B79E6;
+	--baseText: #FFEFD7;
+	--baseBorder: #444444ff;
+	--selectedTextBackgroundColor: #66666633;
+	--goldColor: #FFED79;
+	--blueAPTextColor: #80EEFF;
+	--brandGreen: #C4FF47;
+	--ritualGreen: #65951D;
+	--ritualGreenLight: #7CBC1D;
+	--offWhite: #FFEFD7;
+	--offBlack: #10130D;
+	--soulColor: #70F8C1;
+	--shardColor: #99FFD6;
+	--team1Color: #BF9A53;
+	--team1ColorBright: #FBDCA0;
+	--team1ColorDark: #7B6A26;
+	--team1ColorDarker: #534716;
+	--team2Color: #5B79E6;
+	--team2ColorBright: #BDCBFF;
+	--team2ColorDark: #4156A0;
+	--team2ColorDarker: #2D3C70;
+	--courageLightColor: #FFD18D;
+	--courageBrightColor: #EC9719;
+	--courageColor: #9D620B;
+	--courageDarkColor: #7F540E;
+	--courageDarkerColor: #302306;
+	--fortitudeLightColor: #D3FC96;
+	--fortitudeBrightColor: #7BBA1D;
+	--fortitudeColor: #649717;
+	--fortitudeDarkColor: #4C7113;
+	--fortitudeDarkerColor: #1F3400;
+	--spiritLightColor: #E7C8FF;
+	--spiritBrightColor: #CE90FF;
+	--spiritColor: #8A55B3;
+	--spiritDarkColor: #613484;
+	--spiritDarkerColor: #362147;
+	--weaponColor: #E58A00;
+	--weaponColorFaded: #FFA82622;
+	--armorColor: #00FF99;
+	--armorColorFaded: #00FF9922;
+	--techColor: #00DDFF;
+	--techColorFaded: #245359;
+	--favColor: #FFDB4C;
+	--weaponModsColor: rgb(229, 138, 0);
+	--armorModsColor: rgb(0, 178, 107);
+	--techModsColor: rgb(0, 155, 178);
+	--defaultBGColor0: #21201C;
+	--defaultBGColor1: #2E2C27;
+	--defaultBGColor2: #3B3832;
+	--defaultBGColor3: #47443D;
+	--defaultBGColor4: #545047;
+	--weaponBGColor0: #402600;
+	--weaponBGColor1: #4D2E00;
+	--weaponBGColor2: #663D00;
+	--weaponBGColor3: #804C00;
+	--weaponBGColor4: #8C5400;
+	--armorBGColor0: #1A3329;
+	--armorBGColor1: #204033;
+	--armorBGColor2: #264C3D;
+	--armorBGColor3: #346651;
+	--armorBGColor4: #3A735C;
+	--techBGColor0: #153033;
+	--techBGColor1: #1F474C;
+	--techBGColor2: #245359;
+	--techBGColor3: #2E6A73;
+	--techBGColor4: #337680;
+	--favBGColor1: #4D3800;
+	--favBGColor3: #664A00;
+	--favBGColor4: #735400;
+	--laneYellowColor: #CFAF3B;
+	--laneOrangeColor: #CE742D;
+	--laneBlueColor: #2DA0CA;
+	--lanePurpleColor: #CC2CC2;
+	--atlasColor: #2092AE;
+	--astroColor: #8E4C31;
+	--bebopColor: #9F4734;
+	--chronoColor: #983952;
+	--forgeColor: #46689B;
+	--ghostColor: #2D795A;
+	--gigawattColor: #DC9833;
+	--hazeColor: #AC6133;
+	--hornetColor: #A2C7E5;
+	--infernoColor: #E05151;
+	--tenguColor: #B373D9;
+	--kelvinColor: #74ABBC;
+	--lashColor: #424B56;
+	--mirageColor: #84673C;
+	--krillColor: #684B85;
+	--orionColor: #5EB083;
+	--synthColor: #545F95;
+	--nanoColor: #583f57;
+	--shivColor: #A43C87;
+	--dynamoColor: #D0B945;
+	--viscousColor: #88C363;
+	--wardenColor: #556178;
+	--wraithColor: #944D78;
+	--wreckerColor: #7F2DB1;
+	--yamatoColor: #6E9080;
+	--akimboColor: #C7B4AB;
+	--ballistaColor: #BD63A4;
+	--kaliColor: #D7AE61;
+}
+
+body {
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+	color: var(--baseText);
+	font-family: var(--sansMono);
+	background-color: #000;
+}
+
+span {
+	color: var(--offWhite);
+	font-size: 18px;
+}
+
+button {
+	appearance: none;
+	border: none;
+}
+
+progress {
+	appearance: none;
+	display: block;
+	width: 320px;
+	height: 22px;
+	border-radius: 50px;
+	background-color: #000000ff;
+	border: none;
+	overflow: hidden;
+
+	&::-webkit-progress-bar {
+		background: black;
+	}
+
+	&::-webkit-progress-value { background: linear-gradient(to right, #222222FF, #444f52FF) }
+	&::-moz-progress-bar { background: linear-gradient(to right, #222222FF, #444f52FF) }
+}

@@ -1,0 +1,336 @@
+<.flash_group flash={@flash} />
+
+<div
+  data-id="CitadelPostGameScoreboard"
+  class={
+    case @match_details.match_info.winning_team do
+      :k_ECitadelLobbyTeam_Team0 -> "Team1Victory"
+      :k_ECitadelLobbyTeam_Team1 -> "Team2Victory"
+      _ -> ""
+    end
+  }
+>
+  <header>
+    <h1>Match <%= @match_details.match_info.match_id %></h1>
+    <h2>
+      <%= @match_details.match_info.start_time |> DateTime.from_unix!() |> DateTime.to_string() %>
+    </h2>
+  </header>
+  <div data-id="ScoreContainer">
+    <div data-id="GoldAndTimeContainer">
+      <div data-id="Team1Networth" class="TeamNetworth">
+        <div class="ScoreContainer">
+          <span class="ScoreLabel">
+            <%= @players_by_team
+            |> Map.get(:k_ECitadelLobbyTeam_Team0)
+            |> Enum.map(& &1.net_worth)
+            |> Enum.sum()
+            |> div(1000) %>k
+          </span>
+        </div>
+      </div>
+      <div class="TimeContainer">
+        <span class="TimeLabel">
+          <.timestamp duration={@match_details.match_info.duration_s} />
+        </span>
+      </div>
+      <div data-id="Team2Networth" class="TeamNetworth">
+        <div class="ScoreContainer">
+          <span class="ScoreLabel">
+            <%= @players_by_team
+            |> Map.get(:k_ECitadelLobbyTeam_Team1)
+            |> Enum.map(& &1.net_worth)
+            |> Enum.sum()
+            |> div(1000) %>k
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="TeamNamesContainer">
+    <div data-id="Team1TitleContainer" class="titleContainer">
+      <div data-id="Team1NameContainer" class="nameContainer">
+        <div class="TeamColorCircle"></div>
+        <span class="TeamName">The Amber Hand</span>
+      </div>
+      <span
+        :if={@match_details.match_info.winning_team == :k_ECitadelLobbyTeam_Team0}
+        class="VictoryLabel"
+      >
+        Victory
+      </span>
+    </div>
+    <div data-id="Team2TitleContainer" class="titleContainer">
+      <div data-id="Team2NameContainer" class="nameContainer">
+        <span class="TeamName">The Sapphire Flame</span>
+        <div class="TeamColorCircle"></div>
+      </div>
+      <span
+        :if={@match_details.match_info.winning_team == :k_ECitadelLobbyTeam_Team1}
+        class="VictoryLabel"
+      >
+        Victory
+      </span>
+    </div>
+  </div>
+  <div class="PlayersContainer">
+    <div data-id="Team1Players" class="TeamPlayersContainer">
+      <div
+        :for={
+          player <-
+            Map.get(@players_by_team, :k_ECitadelLobbyTeam_Team0)
+            |> Enum.sort_by(fn player ->
+              [player.assigned_lane, player.party, player.player_slot]
+            end)
+        }
+        class="PlayerSnippet"
+      >
+        <.hero_image
+          hero_id={player.hero_id}
+          heroes_by_id={@heroes_by_id}
+          heroes={@heroes}
+          i18n={@i18n}
+          data-id="HeroImage"
+          class="heroImg"
+        />
+        <% player_account =
+          Map.get(@players_by_id || %{}, player.account_id + 76_561_197_960_265_728) %>
+        <div data-id="NameBarGraphs">
+          <div data-id="PlayerName">
+            <a href={player_account.url} title={player_account.username}>
+              <%= player_account.username %>
+              <!-- <img width="184" height="184" src={player_account.avatar} alt="" /> -->
+            </a>
+          </div>
+          <.item_graphs
+            items={player.items}
+            abilities={@abilities}
+            abilities_by_id={@abilities_by_id}
+          />
+        </div>
+        <div class="PlayerStatsContainer">
+          <div
+            data-id="Networth"
+            class={
+              if player.net_worth >= Map.get(@player_awards, :networth, 0) do
+                "playerAward"
+              end
+            }
+          >
+            <span class="PlayerNetworth"><.format_number number={player.net_worth} /></span>
+          </div>
+          <div
+            data-id="Kills"
+            class={
+              if player.kills >= Map.get(@player_awards, :kills, 0) do
+                "playerAward"
+              end
+            }
+          >
+            <span class="PlayerKills"><.format_number number={player.kills} /></span>
+          </div>
+          <div data-id="Deaths">
+            <span class="PlayerDeaths"><.format_number number={player.deaths} /></span>
+          </div>
+          <div
+            data-id="Assists"
+            class={
+              if player.assists >= Map.get(@player_awards, :assists, 0) do
+                "playerAward"
+              end
+            }
+          >
+            <span class="PlayerAssists"><.format_number number={player.assists} /></span>
+          </div>
+          <div
+            data-id="PlayerDamage"
+            class={
+              if List.last(player.stats).player_damage >=
+                   Map.get(@player_awards, :player_damage, 0) do
+                "playerAward"
+              end
+            }
+          >
+            <span class="PlayerHeroDmg">
+              <.format_number number={List.last(player.stats).player_damage} />
+            </span>
+          </div>
+          <div
+            data-id="ObjDamage"
+            class={
+              if List.last(player.stats).boss_damage >=
+                   Map.get(@player_awards, :objective_damage, 0) do
+                "playerAward"
+              end
+            }
+          >
+            <span class="PlayerObjDmg">
+              <.format_number number={List.last(player.stats).boss_damage} />
+            </span>
+          </div>
+          <div
+            data-id="Healing"
+            class={
+              if List.last(player.stats).player_healing >= Map.get(@player_awards, :healing, 0) do
+                "playerAward"
+              end
+            }
+          >
+            <span class="PlayerHealing">
+              <.format_number number={List.last(player.stats).player_healing} />
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div data-id="StatsTypeContainer">
+      <span class="StatsLabel Title">Player Stats</span>
+      <span class="StatsLabel SoulsStatLabel">Total Souls</span>
+      <span class="StatsLabel">Kills</span>
+      <span class="StatsLabel">Deaths</span>
+      <span class="StatsLabel">Assists</span>
+      <span class="StatsLabel">Player DMG</span>
+      <span class="StatsLabel">OBJ DMG</span>
+      <span class="StatsLabel">Healing</span>
+    </div>
+
+    <div data-id="Team2Players" class="TeamPlayersContainer">
+      <div
+        :for={
+          player <-
+            Map.get(@players_by_team, :k_ECitadelLobbyTeam_Team1)
+            |> Enum.sort_by(fn player ->
+              [player.assigned_lane, player.party, player.player_slot]
+            end)
+        }
+        class="PlayerSnippet"
+      >
+        <.hero_image
+          hero_id={player.hero_id}
+          heroes_by_id={@heroes_by_id}
+          heroes={@heroes}
+          i18n={@i18n}
+          data-id="HeroImage"
+          class="heroImg"
+        />
+        <% player_account =
+          Map.get(@players_by_id || %{}, player.account_id + 76_561_197_960_265_728) %>
+        <div data-id="NameBarGraphs">
+          <div data-id="PlayerName">
+            <a href={player_account.url} title={player_account.username}>
+              <%= player_account.username %>
+              <!-- <img width="184" height="184" src={player_account.avatar} alt="" /> -->
+            </a>
+          </div>
+          <.item_graphs
+            items={player.items}
+            abilities={@abilities}
+            abilities_by_id={@abilities_by_id}
+          />
+        </div>
+        <div class="PlayerStatsContainer">
+          <div
+            data-id="Networth"
+            class={
+              if player.net_worth >= Map.get(@player_awards, :networth, 0) do
+                "playerAward"
+              end
+            }
+          >
+            <span class="PlayerNetworth"><.format_number number={player.net_worth} /></span>
+          </div>
+          <div
+            data-id="Kills"
+            class={
+              if player.kills >= Map.get(@player_awards, :kills, 0) do
+                "playerAward"
+              end
+            }
+          >
+            <span class="PlayerKills"><.format_number number={player.kills} /></span>
+          </div>
+          <div data-id="Deaths">
+            <span class="PlayerDeaths"><.format_number number={player.deaths} /></span>
+          </div>
+          <div
+            data-id="Assists"
+            class={
+              if player.assists >= Map.get(@player_awards, :assists, 0) do
+                "playerAward"
+              end
+            }
+          >
+            <span class="PlayerAssists"><.format_number number={player.assists} /></span>
+          </div>
+          <div
+            data-id="PlayerDamage"
+            class={
+              if List.last(player.stats).player_damage >=
+                   Map.get(@player_awards, :player_damage, 0) do
+                "playerAward"
+              end
+            }
+          >
+            <span class="PlayerHeroDmg">
+              <.format_number number={List.last(player.stats).player_damage} />
+            </span>
+          </div>
+          <div
+            data-id="ObjDamage"
+            class={
+              if List.last(player.stats).boss_damage >=
+                   Map.get(@player_awards, :objective_damage, 0) do
+                "playerAward"
+              end
+            }
+          >
+            <span class="PlayerObjDmg">
+              <.format_number number={List.last(player.stats).boss_damage} />
+            </span>
+          </div>
+          <div
+            data-id="Healing"
+            class={
+              if List.last(player.stats).player_healing >= Map.get(@player_awards, :healing, 0) do
+                "playerAward"
+              end
+            }
+          >
+            <span class="PlayerHealing">
+              <.format_number number={List.last(player.stats).player_healing} />
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div data-id="SwitchPage">
+    <div data-id="GraphIcon"></div>
+    <span>View Graphs</span>
+    <div data-id="NavArrow"></div>
+  </div>
+</div>
+
+<%!--
+<h2>Objectives</h2>
+<%= inspect @match_details.match_info.objectives, pretty: true %>
+
+<hr />
+
+<h2>Match Paths</h2>
+<ul>
+  <li>Version: <%= @match_details.match_info.match_paths.version %></li>
+  <li>Interval: <%= @match_details.match_info.match_paths.interval_s %></li>
+  <li>X Resolution: <%= @match_details.match_info.match_paths.x_resolution %></li>
+  <li>Y Resolution: <%= @match_details.match_info.match_paths.y_resolution %></li>
+</ul>
+
+<hr />
+
+<ul :for={path <- @match_details.match_info.match_paths.paths}>
+  <li>
+    <pre><%= inspect path, pretty: true %></pre>
+  </li>
+</ul>
+--%>
