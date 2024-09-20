@@ -1,0 +1,22 @@
+<h1>Watching Match <%= @match_details.match_info.match_id %></h1>
+
+<.timestamp duration={@current_s} />
+
+<div class="mini-map">
+  <%= for path <- @match_details.match_info.match_paths.paths do %>
+    <% {image_path, image_alt, team} = Map.get(@mm_by_player_slot, path.player_slot) %>
+    <% team =
+      Atom.to_string(team) |> String.replace("k_ECitadelLobbyTeam_", "") |> String.downcase() %>
+    <% %{:x => x, :y => y, :health => health} = Map.get(@map_pos_by_player_slot, path.player_slot) %>
+    <% respawning =
+      Map.get(@map_pos_by_player_slot, path.player_slot) |> Map.get(:respawning, false) %>
+    <img
+      class={"player " <> team <> if health == 0, do: " dead", else: ""  <> if respawning, do: " respawning", else: ""}
+      src={image_path}
+      style={"left: #{x}%; top: #{y}%"}
+      width="150"
+      height="150"
+      alt={image_alt}
+    />
+  <% end %>
+</div>

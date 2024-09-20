@@ -56,6 +56,7 @@ defmodule Healbane.MixProject do
       {:jason, "~> 1.2"},
       {:dns_cluster, "~> 0.1.1"},
       {:bandit, "~> 1.5"},
+      {:tzdata, "~> 1.1"},
       {:protox, "~> 1.7"},
       {:httpoison, "~> 2.0"},
       {:poison, "~> 6.0"},

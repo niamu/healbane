@@ -8,16 +8,98 @@
 @import "tailwindcss/utilities";
 */
 
-/* This file is for your main application CSS */
-
-pre {
-	overflow: scroll;
-}
-
-a {
-	display: inline-block;
-}
-
 img {
 	display: block;
+}
+
+.mini-map {
+	--mm-size: 500px;
+	position: relative;
+	margin: 1rem;
+	width: var(--mm-size);
+	height: var(--mm-size);
+	background-size: contain;
+	background-image: url("/images/minimap/minimap_bg_psd.png");
+	mask-image: url("/images/minimap/minimap_bg_psd.png");
+	mask-size: contain;
+
+	&::before,
+	&::after {
+		content: "";
+		position: absolute;
+		top: 0;
+		left: 0;
+		display: block;
+		width: inherit;
+		height: inherit;
+		background-size: inherit;
+	}
+
+	&::before {
+		background-image: url("/images/minimap/minimap_mid_psd.png");
+	}
+
+	&::after {
+		background-image: url("/images/minimap/minimap_frame_psd.png");
+	}
+
+	& .player {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 36px;
+		height: 36px;
+		padding: 2px;
+		border-radius: 50%;
+		translate: -18px -18px;
+		z-index: 1;
+		box-shadow: 0 0 3px #000;
+		transition: left 1s linear, top 1s linear, scale 0.125s ease-in-out;
+
+		&.dead {
+			animation-name: mm_player_dead;
+			animation-duration: 5s;
+			animation-iteration-count: 1;
+			animation-fill-mode: forwards;
+			animation-direction: normal;
+			z-index: 0;
+			pointer-events: none;
+		}
+
+		&.respawning {
+			transition: none;
+		}
+
+		&:hover {
+			z-index: 2;
+			scale: 1.4;
+		}
+
+		&.team0 {
+			background: var(--team1Color);
+		}
+
+		&.team1 {
+			background: var(--team2Color);
+		}
+	}
+}
+
+@keyframes mm_player_dead {
+	0% {
+		filter: saturate(1);
+		opacity: 1;
+	}
+
+	25% {
+		filter: saturate(0.5);
+		opacity: 0.75;
+	}
+	
+	100%
+	{
+		filter: saturate(0.5);
+		opacity: 0;
+	}
+	
 }

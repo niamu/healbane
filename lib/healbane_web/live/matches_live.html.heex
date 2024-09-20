@@ -1,0 +1,11 @@
+<h1>Home</h1>
+
+<ul>
+  <li :for={replay <- @replays}>
+    <%= if @current_match_id == replay do %>
+      <.link href={"/live/#{replay}"}>Watch Live</.link>
+    <% else %>
+      <.link href={"/match/#{replay}"}>View Replay</.link>
+    <% end %>
+  </li>
+</ul>

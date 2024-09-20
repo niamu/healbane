@@ -20,7 +20,9 @@ defmodule HealbaneWeb.PostGame do
 
   def timestamp(assigns) do
     ~H"""
-    <%= div(@duration, 60) %>:<%= rem(@duration, 60) %>
+    <%= div(@duration, 60) %>:<%= rem(@duration, 60)
+    |> Integer.to_string()
+    |> String.pad_leading(2, "0") %>
     """
   end
 

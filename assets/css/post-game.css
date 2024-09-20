@@ -335,13 +335,17 @@ header {
 	width: inherit;
 }
 
-[data-id=PlayerName] a {
-	width: inherit;
-	text-decoration: none;
-	text-overflow: ellipsis;
-	white-space: nowrap;
-	overflow: hidden;
-	color: inherit;
+[data-id=PlayerName] {
+	& a,
+	& span {
+		display: inline-block;
+		width: inherit;
+		text-decoration: none;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		overflow: hidden;
+		color: inherit;
+	}
 }
 
 .PlayerStatsContainer > div {

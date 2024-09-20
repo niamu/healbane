@@ -17,7 +17,11 @@ defmodule HealbaneWeb.Router do
   scope "/", HealbaneWeb do
     pipe_through :browser
 
-    get "/", PageController, :home
+    live "/", MatchesLive
+
+    get "/match/:match_id", PageController, :match
+
+    live "/live/:match_id", MatchLive
   end
 
   # Other scopes may use custom stacks.

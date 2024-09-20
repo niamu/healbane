@@ -1,12 +1,26 @@
 defmodule HealbaneWeb.PageController do
   use HealbaneWeb, :controller
 
-  use Protox,
-    files: [
-      "./defs/Protobufs/deadlock/citadel_gcmessages_common.proto"
-    ]
-
   def home(conn, _params) do
+    replays =
+      Path.wildcard("./defs/replays/*.meta")
+      |> Enum.map(&(&1 |> Path.basename() |> Path.rootname()))
+
+    conn
+    |> assign(:replays, replays)
+    |> render(:home, layout: false)
+  end
+
+  def match(conn, %{"match_id" => match_id}) do
+    f =
+      case File.read("./defs/replays/#{match_id}.meta") do
+        {:ok, f} -> f
+        _ -> raise Phoenix.Router.NoRouteError, conn: conn, router: HealbaneWeb.Router
+      end
+
+    {:ok, match_meta} = Healbane.decode_meta(f)
+    {:ok, match_details} = Healbane.decode_match_details(match_meta.match_details)
+
     heroes =
       File.read!("/Users/niamu/Desktop/Deadlock/exported/scripts/heroes.vdata")
       |> KeyValues3.decode!()
@@ -40,10 +54,6 @@ defmodule HealbaneWeb.PageController do
         |> Map.get("Tokens")
       end
 
-    f = File.read!("./defs/5265388_567962807.meta")
-    {:ok, match_meta} = Protox.decode(f, CMsgMatchMetaData)
-    {:ok, match_details} = Protox.decode(match_meta.match_details, CMsgMatchMetaDataContents)
-
     players_by_team = match_details.match_info.players |> Enum.group_by(& &1.team)
 
     player_awards =
@@ -73,9 +83,8 @@ defmodule HealbaneWeb.PageController do
       end)
 
     api_key = Application.get_env(:healbane, :steam_api_key)
-
-    url =
-      "http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=#{api_key}&steamids=#{Enum.join(steamids, ",")}"
+    player_summaries_endpoint = "http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/"
+    url = "#{player_summaries_endpoint}?key=#{api_key}&steamids=#{Enum.join(steamids, ",")}"
 
     players_by_id =
       case HTTPoison.get(url) do
@@ -100,7 +109,7 @@ defmodule HealbaneWeb.PageController do
       end
 
     conn
-    |> assign(:page_title, "Post Game")
+    |> assign(:page_title, "Post Game #{match_id}")
     |> assign(:match_details, match_details)
     |> assign(:players_by_team, players_by_team)
     |> assign(:players_by_id, players_by_id)
@@ -110,6 +119,6 @@ defmodule HealbaneWeb.PageController do
     |> assign(:abilities, abilities)
     |> assign(:abilities_by_id, abilities_by_id)
     |> assign(:i18n, i18n)
-    |> render(:home, layout: false)
+    |> render(:match, layout: false)
   end
 end

@@ -15,6 +15,7 @@ defmodule Healbane.Application do
       {Finch, name: Healbane.Finch},
       # Start a worker by calling: Healbane.Worker.start_link(arg)
       # {Healbane.Worker, arg},
+      Healbane.WatchServer,
       # Start to serve requests, typically the last entry
       HealbaneWeb.Endpoint
     ]
