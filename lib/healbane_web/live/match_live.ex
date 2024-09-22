@@ -1,5 +1,5 @@
 defmodule HealbaneWeb.MatchLive do
-  use Phoenix.LiveView
+  use HealbaneWeb, :live_view
 
   import HealbaneWeb.PostGame
 

@@ -12,7 +12,7 @@ config :healbane, HealbaneWeb.Endpoint,
   http: [ip: {127, 0, 0, 1}, port: 4000],
   check_origin: false,
   code_reloader: true,
-  debug_errors: true,
+  debug_errors: false,
   secret_key_base: "iqfLPTGDw45NPBkU166BcLZxooxUvXp7qhzGx8LEsJ/iB/oPJ/DEUKymQAmsNrgP",
   watchers: [
     esbuild: {Esbuild, :install_and_run, [:healbane, ~w(--sourcemap=inline --watch)]},

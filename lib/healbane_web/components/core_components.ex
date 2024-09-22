@@ -17,7 +17,7 @@ defmodule HealbaneWeb.CoreComponents do
   use Phoenix.Component
 
   alias Phoenix.LiveView.JS
-  import HealbaneWeb.Gettext
+  use Gettext, backend: HealbaneWeb.Gettext
 
   @doc """
   Renders a modal.

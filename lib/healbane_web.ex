@@ -43,7 +43,7 @@ defmodule HealbaneWeb do
         layouts: [html: HealbaneWeb.Layouts]
 
       import Plug.Conn
-      import HealbaneWeb.Gettext
+      use Gettext, backend: HealbaneWeb.Gettext
 
       unquote(verified_routes())
     end
@@ -85,7 +85,7 @@ defmodule HealbaneWeb do
       import Phoenix.HTML
       # Core UI components and translation
       import HealbaneWeb.CoreComponents
-      import HealbaneWeb.Gettext
+      use Gettext, backend: HealbaneWeb.Gettext
 
       # Shortcut for generating JS commands
       alias Phoenix.LiveView.JS

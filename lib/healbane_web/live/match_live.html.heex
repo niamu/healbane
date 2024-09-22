@@ -116,7 +116,7 @@
     <% respawning =
       Map.get(@map_pos_by_player_slot, path.player_slot) |> Map.get(:respawning, false) %>
     <img
-      class={"player " <> team <> if health == 0, do: " dead", else: ""  <> if respawning, do: " respawning", else: ""}
+      class={"player " <> team <> if health == 0, do: " dead", else: ""  <> if(respawning, do: " respawning", else: "")}
       src={image_path}
       style={"left: #{x}%; top: #{y}%"}
       width="150"

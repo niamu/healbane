@@ -9,7 +9,3 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 */
-
-img {
-	display: block;
-}

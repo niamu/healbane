@@ -1,5 +1,5 @@
 defmodule HealbaneWeb.MatchesLive do
-  use Phoenix.LiveView
+  use HealbaneWeb, :live_view
   alias Healbane.WatchServer
 
   def mount(_params, _session, socket) do
