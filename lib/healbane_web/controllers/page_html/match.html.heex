@@ -74,7 +74,7 @@
         </div>
 
         <div class="scroller">
-          <div
+          <.player
             :for={
               player <-
                 Map.get(@players_by_team, :k_ECitadelLobbyTeam_Team0)
@@ -82,111 +82,30 @@
                   [player.assigned_lane, player.party, player.player_slot]
                 end)
             }
-            class="PlayerSnippet"
+            player={player}
+            players_by_id={@players_by_id}
+            player_awards={@player_awards}
+            i18n={@i18n}
+            heroes_by_id={@heroes_by_id}
           >
-            <.hero_image
-              hero_id={player.hero_id}
-              heroes_by_id={@heroes_by_id}
-              heroes={@heroes}
-              i18n={@i18n}
-              data-id="HeroImage"
-              class="heroImg"
-            />
-            <% player_account =
-              Map.get(@players_by_id || %{}, player.account_id + 76_561_197_960_265_728) %>
-            <div data-id="NameBarGraphs">
-              <div data-id="PlayerName">
-                <%= if player_account do %>
-                  <a href={player_account.url} title={player_account.username}>
-                    <%= player_account.username %>
-                    <!-- <img width="184" height="184" src={player_account.avatar} alt="" /> -->
-                  </a>
-                <% else %>
-                  <% hero_name = Map.get(@i18n, Map.get(@heroes_by_id, player.hero_id)) %>
-                  <span title={hero_name}><%= hero_name %></span>
-                <% end %>
-              </div>
+            <:hero_image>
+              <.hero_image
+                hero_id={player.hero_id}
+                heroes_by_id={@heroes_by_id}
+                heroes={@heroes}
+                i18n={@i18n}
+                data-id="HeroImage"
+                class="heroImg"
+              />
+            </:hero_image>
+            <:item_graphs>
               <.item_graphs
                 items={player.items}
                 abilities={@abilities}
                 abilities_by_id={@abilities_by_id}
               />
-            </div>
-            <div class="PlayerStatsContainer">
-              <div
-                data-id="Networth"
-                class={
-                  if player.net_worth >= Map.get(@player_awards, :networth, 0) do
-                    "playerAward"
-                  end
-                }
-              >
-                <span class="PlayerNetworth"><.format_number number={player.net_worth} /></span>
-              </div>
-              <div
-                data-id="Kills"
-                class={
-                  if player.kills >= Map.get(@player_awards, :kills, 0) do
-                    "playerAward"
-                  end
-                }
-              >
-                <span class="PlayerKills"><.format_number number={player.kills} /></span>
-              </div>
-              <div data-id="Deaths">
-                <span class="PlayerDeaths"><.format_number number={player.deaths} /></span>
-              </div>
-              <div
-                data-id="Assists"
-                class={
-                  if player.assists >= Map.get(@player_awards, :assists, 0) do
-                    "playerAward"
-                  end
-                }
-              >
-                <span class="PlayerAssists"><.format_number number={player.assists} /></span>
-              </div>
-              <div
-                data-id="PlayerDamage"
-                class={
-                  if List.last(player.stats).player_damage >=
-                       Map.get(@player_awards, :player_damage, 0) do
-                    "playerAward"
-                  end
-                }
-              >
-                <span class="PlayerHeroDmg">
-                  <.format_number number={List.last(player.stats).player_damage} />
-                </span>
-              </div>
-              <div
-                data-id="ObjDamage"
-                class={
-                  if List.last(player.stats).boss_damage >=
-                       Map.get(@player_awards, :objective_damage, 0) do
-                    "playerAward"
-                  end
-                }
-              >
-                <span class="PlayerObjDmg">
-                  <.format_number number={List.last(player.stats).boss_damage} />
-                </span>
-              </div>
-              <div
-                data-id="Healing"
-                class={
-                  if List.last(player.stats).player_healing >=
-                       Map.get(@player_awards, :healing, 0) do
-                    "playerAward"
-                  end
-                }
-              >
-                <span class="PlayerHealing">
-                  <.format_number number={List.last(player.stats).player_healing} />
-                </span>
-              </div>
-            </div>
-          </div>
+            </:item_graphs>
+          </.player>
         </div>
       </div>
     </div>
@@ -227,7 +146,7 @@
         </div>
 
         <div class="scroller">
-          <div
+          <.player
             :for={
               player <-
                 Map.get(@players_by_team, :k_ECitadelLobbyTeam_Team1)
@@ -235,111 +154,30 @@
                   [player.assigned_lane, player.party, player.player_slot]
                 end)
             }
-            class="PlayerSnippet"
+            player={player}
+            players_by_id={@players_by_id}
+            player_awards={@player_awards}
+            i18n={@i18n}
+            heroes_by_id={@heroes_by_id}
           >
-            <.hero_image
-              hero_id={player.hero_id}
-              heroes_by_id={@heroes_by_id}
-              heroes={@heroes}
-              i18n={@i18n}
-              data-id="HeroImage"
-              class="heroImg"
-            />
-            <% player_account =
-              Map.get(@players_by_id || %{}, player.account_id + 76_561_197_960_265_728) %>
-            <div data-id="NameBarGraphs">
-              <div data-id="PlayerName">
-                <%= if player_account do %>
-                  <a href={player_account.url} title={player_account.username}>
-                    <%= player_account.username %>
-                    <!-- <img width="184" height="184" src={player_account.avatar} alt="" /> -->
-                  </a>
-                <% else %>
-                  <% hero_name = Map.get(@i18n, Map.get(@heroes_by_id, player.hero_id)) %>
-                  <span title={hero_name}><%= hero_name %></span>
-                <% end %>
-              </div>
+            <:hero_image>
+              <.hero_image
+                hero_id={player.hero_id}
+                heroes_by_id={@heroes_by_id}
+                heroes={@heroes}
+                i18n={@i18n}
+                data-id="HeroImage"
+                class="heroImg"
+              />
+            </:hero_image>
+            <:item_graphs>
               <.item_graphs
                 items={player.items}
                 abilities={@abilities}
                 abilities_by_id={@abilities_by_id}
               />
-            </div>
-            <div class="PlayerStatsContainer">
-              <div
-                data-id="Networth"
-                class={
-                  if player.net_worth >= Map.get(@player_awards, :networth, 0) do
-                    "playerAward"
-                  end
-                }
-              >
-                <span class="PlayerNetworth"><.format_number number={player.net_worth} /></span>
-              </div>
-              <div
-                data-id="Kills"
-                class={
-                  if player.kills >= Map.get(@player_awards, :kills, 0) do
-                    "playerAward"
-                  end
-                }
-              >
-                <span class="PlayerKills"><.format_number number={player.kills} /></span>
-              </div>
-              <div data-id="Deaths">
-                <span class="PlayerDeaths"><.format_number number={player.deaths} /></span>
-              </div>
-              <div
-                data-id="Assists"
-                class={
-                  if player.assists >= Map.get(@player_awards, :assists, 0) do
-                    "playerAward"
-                  end
-                }
-              >
-                <span class="PlayerAssists"><.format_number number={player.assists} /></span>
-              </div>
-              <div
-                data-id="PlayerDamage"
-                class={
-                  if List.last(player.stats).player_damage >=
-                       Map.get(@player_awards, :player_damage, 0) do
-                    "playerAward"
-                  end
-                }
-              >
-                <span class="PlayerHeroDmg">
-                  <.format_number number={List.last(player.stats).player_damage} />
-                </span>
-              </div>
-              <div
-                data-id="ObjDamage"
-                class={
-                  if List.last(player.stats).boss_damage >=
-                       Map.get(@player_awards, :objective_damage, 0) do
-                    "playerAward"
-                  end
-                }
-              >
-                <span class="PlayerObjDmg">
-                  <.format_number number={List.last(player.stats).boss_damage} />
-                </span>
-              </div>
-              <div
-                data-id="Healing"
-                class={
-                  if List.last(player.stats).player_healing >=
-                       Map.get(@player_awards, :healing, 0) do
-                    "playerAward"
-                  end
-                }
-              >
-                <span class="PlayerHealing">
-                  <.format_number number={List.last(player.stats).player_healing} />
-                </span>
-              </div>
-            </div>
-          </div>
+            </:item_graphs>
+          </.player>
         </div>
       </div>
     </div>
