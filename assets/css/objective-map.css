@@ -1,0 +1,178 @@
+#ObjectivesMap {
+	position: relative;
+	width: 100px;
+	height: 100px;
+}
+
+.ObjectiveCtn {
+	width: 100%;
+	height: 100%;
+	background-color: #00000030;
+	border-radius: 5px;
+}
+
+.MatchComplete .ObjectiveCtn {
+	background-color: #ffffff03;
+}
+
+.Team2IsFriend .ObjectiveCtn {
+	transform: rotateY(180deg) rotateX(180deg);
+}
+
+.Icon {
+	position: absolute;
+	border-radius: 50%;
+	width: 10px;
+	height: 10px;
+}
+
+.Icon.Titan {
+	border-radius: 2px;
+}
+
+.Team1 {
+	background-color: var(--team1ColorDark);
+	opacity: 0.8;
+}
+
+.Team2 {
+	background-color: var(--team2ColorDark);
+	opacity: 0.8;
+}
+
+.FeaturedMatch .Team1,.FeaturedMatch .Team2 {
+	opacity: 0.8;
+	background-color: var(--offBlack);
+}
+
+.Alive.Team1 {
+	opacity: 1;
+	background-color: var(--team1Color);
+}
+
+.Alive.Team2 {
+	opacity: 1;
+	background-color: var(--team2Color);
+}
+
+.Team1IsFriend .Alive.Team1 {
+	background-color: var(--offWhite);
+}
+
+.Team2IsFriend .Alive.Team2 {
+	background-color: var(--offWhite);
+}
+
+.Team1IsEnemy .Alive.Team1 {
+	background-color: var(--colorEnemy);
+}
+
+.Team2IsEnemy .Alive.Team2 {
+	background-color: var(--colorEnemy);
+}
+
+#Team1Core {
+	margin-left: 35px;
+	margin-top: 0px;
+	width: 30px;
+	height: 8px;
+	border-radius: 20px;
+}
+
+#Team1Titan {
+	margin-left: 45px;
+	margin-top: 11px;
+}
+
+#Team1Tier2_1 {
+	margin-left: 15px;
+	margin-top: 25px;
+}
+
+#Team1Tier2_2 {
+	margin-left: 35px;
+	margin-top: 25px;
+}
+
+#Team1Tier2_3 {
+	margin-left: 55px;
+	margin-top: 25px;
+}
+
+#Team1Tier2_4 {
+	margin-left: 75px;
+	margin-top: 25px;
+}
+
+#Team1Tier1_1 {
+	margin-left: 11px;
+	margin-top: 39px;
+}
+
+#Team1Tier1_2 {
+	margin-left: 32px;
+	margin-top: 39px;
+}
+
+#Team1Tier1_3 {
+	margin-left: 57px;
+	margin-top: 39px;
+}
+
+#Team1Tier1_4 {
+	margin-left: 79px;
+	margin-top: 39px;
+}
+
+#Team2Core {
+	margin-left: 35px;
+	margin-top: 93px;
+	width: 30px;
+	height: 8px;
+	border-radius: 20px;
+}
+
+#Team2Titan {
+	margin-left: 45px;
+	margin-top: 79px;
+}
+
+#Team2Tier2_1 {
+	margin-left: 15px;
+	margin-top: 67px;
+}
+
+#Team2Tier2_2 {
+	margin-left: 35px;
+	margin-top: 67px;
+}
+
+#Team2Tier2_3 {
+	margin-left: 55px;
+	margin-top: 67px;
+}
+
+#Team2Tier2_4 {
+	margin-left: 75px;
+	margin-top: 67px;
+}
+
+#Team2Tier1_1 {
+	margin-left: 11px;
+	margin-top: 53px;
+}
+
+#Team2Tier1_2 {
+	margin-left: 32px;
+	margin-top: 53px;
+}
+
+#Team2Tier1_3 {
+	margin-left: 57px;
+	margin-top: 53px;
+}
+
+#Team2Tier1_4 {
+	margin-left: 79px;
+	margin-top: 53px;
+}

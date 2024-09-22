@@ -82,6 +82,50 @@ defmodule HealbaneWeb.MatchLive do
         Map.put(acc, path.player_slot, %{x: x * 100, y: y * 100, health: health})
       end)
 
+    objectives =
+      match_details.match_info.objectives
+      |> Enum.filter(fn objective ->
+        objective.destroyed_time_s != 0 && objective.destroyed_time_s < current_s
+      end)
+      |> Enum.map(fn objective ->
+        team =
+          Atom.to_string(objective.team)
+          |> String.replace("k_ECitadelLobbyTeam_", "")
+          |> String.replace("Team1", "Team2")
+          |> String.replace("Team0", "Team1")
+
+        objective =
+          Atom.to_string(objective.team_objective_id)
+          |> String.replace("k_eCitadelTeamObjective_", "")
+          |> String.replace("Lane", "")
+
+        team <> objective
+      end)
+
+    objectives =
+      [
+        "Team1Core",
+        "Team1Titan",
+        "Team1Tier2_1",
+        "Team1Tier2_2",
+        "Team1Tier2_3",
+        "Team1Tier2_4",
+        "Team1Tier1_1",
+        "Team1Tier1_2",
+        "Team1Tier1_3",
+        "Team1Tier1_4",
+        "Team2Core",
+        "Team2Titan",
+        "Team2Tier2_1",
+        "Team2Tier2_2",
+        "Team2Tier2_3",
+        "Team2Tier2_4",
+        "Team2Tier1_1",
+        "Team2Tier1_2",
+        "Team2Tier1_3",
+        "Team2Tier1_4"
+      ] -- objectives
+
     socket =
       socket
       |> assign(:page_title, "Watch #{match_id}")
@@ -89,6 +133,7 @@ defmodule HealbaneWeb.MatchLive do
       |> assign(:match_details, match_details)
       |> assign(:mm_by_player_slot, mm_by_player_slot)
       |> assign(:map_pos_by_player_slot, map_pos_by_player_slot)
+      |> assign(:objectives, objectives)
       |> assign(:current_match_id, nil)
       |> assign(:duration_s, nil)
       |> assign(:current_s, nil)
@@ -152,6 +197,50 @@ defmodule HealbaneWeb.MatchLive do
         Map.put(acc, path.player_slot, result)
       end)
 
+    objectives =
+      match_details.match_info.objectives
+      |> Enum.filter(fn objective ->
+        objective.destroyed_time_s != 0 && objective.destroyed_time_s < current_s
+      end)
+      |> Enum.map(fn objective ->
+        team =
+          Atom.to_string(objective.team)
+          |> String.replace("k_ECitadelLobbyTeam_", "")
+          |> String.replace("Team1", "Team2")
+          |> String.replace("Team0", "Team1")
+
+        objective =
+          Atom.to_string(objective.team_objective_id)
+          |> String.replace("k_eCitadelTeamObjective_", "")
+          |> String.replace("Lane", "")
+
+        team <> objective
+      end)
+
+    objectives =
+      [
+        "Team1Core",
+        "Team1Titan",
+        "Team1Tier2_1",
+        "Team1Tier2_2",
+        "Team1Tier2_3",
+        "Team1Tier2_4",
+        "Team1Tier1_1",
+        "Team1Tier1_2",
+        "Team1Tier1_3",
+        "Team1Tier1_4",
+        "Team2Core",
+        "Team2Titan",
+        "Team2Tier2_1",
+        "Team2Tier2_2",
+        "Team2Tier2_3",
+        "Team2Tier2_4",
+        "Team2Tier1_1",
+        "Team2Tier1_2",
+        "Team2Tier1_3",
+        "Team2Tier1_4"
+      ] -- objectives
+
     if current_match_id == match_id do
       socket =
         socket
@@ -159,6 +248,7 @@ defmodule HealbaneWeb.MatchLive do
         |> assign(:duration_s, duration_s)
         |> assign(:current_s, current_s)
         |> assign(:map_pos_by_player_slot, map_pos_by_player_slot)
+        |> assign(:objectives, objectives)
 
       {:noreply, socket}
     else

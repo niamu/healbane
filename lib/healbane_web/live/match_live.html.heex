@@ -2,6 +2,111 @@
 
 <.timestamp duration={@current_s} />
 
+<div id="ObjectivesMap">
+  <div class="ObjectiveCtn">
+    <div
+      id="Team1Core"
+      class={if Enum.member?(@objectives, "Team1Core") do "Alive " else "" end <> "Icon Team1 Core"}
+    >
+    </div>
+    <div
+      id="Team1Titan"
+      class={if Enum.member?(@objectives, "Team1Titan") do "Alive " else "" end <> "Icon Team1 Titan"}
+    >
+    </div>
+    <div
+      id="Team1Tier2_1"
+      class={if Enum.member?(@objectives, "Team1Tier2_1") do "Alive " else "" end <> "Icon Team1 Tier2"}
+    >
+    </div>
+    <div
+      id="Team1Tier2_2"
+      class={if Enum.member?(@objectives, "Team1Tier2_2") do "Alive " else "" end <> "Icon Team1 Tier2"}
+    >
+    </div>
+    <div
+      id="Team1Tier2_3"
+      class={if Enum.member?(@objectives, "Team1Tier2_3") do "Alive " else "" end <> "Icon Team1 Tier2"}
+    >
+    </div>
+    <div
+      id="Team1Tier2_4"
+      class={if Enum.member?(@objectives, "Team1Tier2_4") do "Alive " else "" end <> "Icon Team1 Tier2"}
+    >
+    </div>
+    <div
+      id="Team1Tier1_1"
+      class={if Enum.member?(@objectives, "Team1Tier1_1") do "Alive " else "" end <> "Icon Team1 Tier1"}
+    >
+    </div>
+    <div
+      id="Team1Tier1_2"
+      class={if Enum.member?(@objectives, "Team1Tier1_2") do "Alive " else "" end <> "Icon Team1 Tier1"}
+    >
+    </div>
+    <div
+      id="Team1Tier1_3"
+      class={if Enum.member?(@objectives, "Team1Tier1_3") do "Alive " else "" end <> "Icon Team1 Tier1"}
+    >
+    </div>
+    <div
+      id="Team1Tier1_4"
+      class={if Enum.member?(@objectives, "Team1Tier1_4") do "Alive " else "" end <> "Icon Team1 Tier1"}
+    >
+    </div>
+    <div
+      id="Team2Core"
+      class={if Enum.member?(@objectives, "Team2Core") do "Alive " else "" end <> "Icon Team2 Core"}
+    >
+    </div>
+    <div
+      id="Team2Titan"
+      class={if Enum.member?(@objectives, "Team2Titan") do "Alive " else "" end <> "Icon Team2 Titan"}
+    >
+    </div>
+    <div
+      id="Team2Tier2_1"
+      class={if Enum.member?(@objectives, "Team2Tier2_1") do "Alive " else "" end <> "Icon Team2 Tier2"}
+    >
+    </div>
+    <div
+      id="Team2Tier2_2"
+      class={if Enum.member?(@objectives, "Team2Tier2_2") do "Alive " else "" end <> "Icon Team2 Tier2"}
+    >
+    </div>
+    <div
+      id="Team2Tier2_3"
+      class={if Enum.member?(@objectives, "Team2Tier2_3") do "Alive " else "" end <> "Icon Team2 Tier2"}
+    >
+    </div>
+    <div
+      id="Team2Tier2_4"
+      class={if Enum.member?(@objectives, "Team2Tier2_4") do "Alive " else "" end <> "Icon Team2 Tier2"}
+    >
+    </div>
+    <div
+      id="Team2Tier1_1"
+      class={if Enum.member?(@objectives, "Team2Tier1_1") do "Alive " else "" end <> "Icon Team2 Tier1"}
+    >
+    </div>
+    <div
+      id="Team2Tier1_2"
+      class={if Enum.member?(@objectives, "Team2Tier1_2") do "Alive " else "" end <> "Icon Team2 Tier1"}
+    >
+    </div>
+    <div
+      id="Team2Tier1_3"
+      class={if Enum.member?(@objectives, "Team2Tier1_3") do "Alive " else "" end <> "Icon Team2 Tier1"}
+    >
+    </div>
+    <div
+      id="Team2Tier1_4"
+      class={if Enum.member?(@objectives, "Team2Tier1_4") do "Alive " else "" end <> "Icon Team2 Tier1"}
+    >
+    </div>
+  </div>
+</div>
+
 <div class="mini-map">
   <%= for path <- @match_details.match_info.match_paths.paths do %>
     <% {image_path, image_alt, team} = Map.get(@mm_by_player_slot, path.player_slot) %>
