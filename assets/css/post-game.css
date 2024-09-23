@@ -561,7 +561,7 @@ header {
 		opacity: 0.3;
 		mask-repeat: no-repeat;
 		mask-image: url("../images/hud/core/icon_soul.svg");
-		mask-size: 100%;
+		mask-size: 100% 100%;
 		vertical-align: middle;
 	}
 

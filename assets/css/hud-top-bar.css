@@ -1450,6 +1450,7 @@ CitadelHudTopBar.ShowingRight CitadelScoreboardMods {
 
   &::before {
     margin: 0 4px 0 0;
+    mask-image: url("../images/hud/icons/icon_soul.svg");
   }
 
   &::after {
@@ -1668,7 +1669,7 @@ CitadelHudTopBar.ShowingRight CitadelScoreboardMods {
 .SoulsImage {
   background-size: 100% 100%;
   vertical-align: center;
-  background-image: url("../images/hud/core/icon_soul.svg");
+  background-image: url("../images/hud/icon/icon_souls.svg");
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
