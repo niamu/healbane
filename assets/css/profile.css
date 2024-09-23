@@ -1,0 +1,172 @@
+[data-id=MatchBlockBigContainer] {
+	display: flex;
+  flex-wrap: wrap;
+	gap: 10px;
+  margin: 1rem;
+
+	& .MatchBlockBig {
+		position: relative;
+		width: 275px;
+		height: 136px;
+		background-color: color-mix(in srgb, #000 60%, transparent);
+		display: flex;
+		flex-direction: column;
+		border-radius: 5px;
+		overflow: hidden;
+	}
+
+	& .MatchBlockBig.team1 {
+		background-color: #534716;
+		background: linear-gradient(to bottom, #2b250c, #534716);
+	}
+
+	& .MatchBlockBig.team2 {
+		background-color: #2D3C70;
+		background: linear-gradient(to bottom, #0f1941, #2D3C70);
+	}
+
+	& .MatchBlockBig:hover {
+		background-color: #333;
+	}
+
+	& .teamStripe {
+		height: 6px;
+		width: 100%;
+		position: absolute;
+	}
+
+	& .team1 .teamStripe {
+		background-color: var(--team1Color);
+	}
+
+	& .team2 .teamStripe {
+		background-color: var(--team2Color);
+	}
+
+	& .gameContent {
+		position: absolute;
+		width: 100%;
+		height: inherit;
+	}
+
+	& .gameInfo {
+		display: flex;
+		flex-direction: column;
+		padding: 10px;
+		width: 100%;
+	}
+
+	& [data-id=gameResultRow] {
+		width: 100%;
+		display: flex;
+	}
+
+	& .gameResult {
+		font-weight: bold;
+		font-size: 16px;
+	}
+
+	& .gameNetworth {
+		position: absolute;
+		bottom: 0;
+		right: 0;
+		font-weight: bold;
+		font-size: 16px;
+		color: var(--shardColor);
+		text-align: right;
+		vertical-align: bottom;
+		margin: 10px;
+		z-index: 10;
+		text-shadow: 0px 0px 10px #000;
+	}
+
+	& .heroName {
+		font-weight: bold;
+		font-size: 22px;
+		text-transform: uppercase;
+		font-family: var(--serif);
+	}
+
+	& .gameDuration {
+		font-weight: bold;
+		font-size: 16px;
+		opacity: 0.7;
+	}
+
+	& .gameDate {
+		font-weight: bold;
+		font-size: 16px;
+		opacity: 0.5;
+		vertical-align: bottom;
+		margin-top: 15px;
+	}
+
+	& .heroImg {
+		max-height: 100%;
+		width: 95px;
+    height: auto;
+		text-align: right;
+		position: absolute;
+		bottom: 0;
+		right: 0;
+		object-fit: contain;
+    border: none;
+	}
+
+	& [data-id=Overlay] {
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		background-color: rgba(0, 0, 0, 0.9);
+		z-index: 100;
+		opacity: 0;
+    text-decoration: none;
+    transition: 0.125s ease-in-out opacity;
+	}
+
+	& .viewDetails {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		height: inherit;
+	}
+
+	& .viewDetails:has(span:nth-child(2)) .arrowIcon {
+		opacity: 1;
+	}
+
+	& .viewDetails span {
+		display: inline-block;
+		vertical-align: middle;
+		line-height: 1;
+		text-transform: uppercase;
+		opacity: 0.6;
+		font-size: 18px;
+		font-weight: 600;
+	}
+
+	& .arrowIcon {
+		display: inline-block;
+		text-align: center;
+		background-image: url("../images/icons/arrow_east.svg");
+		width: 15px;
+		height: 15px;
+		margin-left: 5px;
+		background-size: contain;
+		background-repeat: no-repeat;
+		opacity: 0.6;
+	}
+
+	& .MatchBlockBig:hover [data-id=Overlay] {
+		opacity: 1;
+	}
+
+	& .win .gameResult {
+		color: rgb(97, 231, 97);
+	}
+
+	& .loss .gameResult {
+		color: rgb(200, 84, 84);
+	}
+}

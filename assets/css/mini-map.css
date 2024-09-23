@@ -1,5 +1,8 @@
-.mini-map {
+:root {
 	--mm-size: 500px;
+}
+
+.mini-map {
 	position: relative;
 	margin: 2rem auto;
 	width: var(--mm-size);
@@ -72,6 +75,21 @@
 		&.team1 {
 			background: var(--team2Color);
 		}
+	}
+}
+
+.mini-map_player {
+	width: calc(var(--mm-size) / 14);
+	height: calc(var(--mm-size) / 14);
+	padding: 2px;
+	border-radius: 50%;
+
+	&.team0 {
+		background: var(--team1Color);
+	}
+
+	&.team1 {
+		background: var(--team2Color);
 	}
 }
 

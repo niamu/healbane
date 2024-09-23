@@ -61,7 +61,8 @@ defmodule Healbane.MixProject do
       {:httpoison, "~> 2.0"},
       {:poison, "~> 6.0"},
       {:key_values3, "~> 0.1.1"},
-      {:vdf, "~> 0.1.0"}
+      {:vdf, "~> 0.1.0"},
+      {:timex, "~> 3.0"}
     ]
   end
 

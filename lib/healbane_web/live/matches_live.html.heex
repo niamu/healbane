@@ -1,11 +1,119 @@
 <h1>Home</h1>
 
-<ul>
-  <li :for={replay <- @replays}>
-    <%= if @current_match_id == replay do %>
-      <.link href={"/live/#{replay}"}>Watch Live</.link>
-    <% else %>
-      <.link href={"/match/#{replay}"}>View Replay</.link>
-    <% end %>
+<h2>Live Matches</h2>
+<ul class="live_matches">
+  <li :for={replay <- @replays} :if={@current_match_id == replay.match_info.match_id}>
+    <ul class="live_players">
+      <li :for={
+        player <-
+          Map.get(
+            replay.match_info.players |> Enum.group_by(& &1.team),
+            :k_ECitadelLobbyTeam_Team0
+          )
+          |> Enum.sort_by(fn player ->
+            [player.assigned_lane, player.party, player.player_slot]
+          end)
+      }>
+        <% player_team = if(player.team == :k_ECitadelLobbyTeam_Team0, do: "team0", else: "team1") %>
+        <% player_hero = Map.get(@heroes_by_id, player.hero_id) %>
+        <% image_path =
+          Map.get(@heroes, player_hero)
+          |> Map.get("m_strMinimapImage")
+          |> elem(1)
+          |> String.replace("file://{images}/", "/images/")
+          |> String.replace_suffix(".psd", "_psd.png") %>
+        <img
+          class={"mini-map_player " <> player_team}
+          src={image_path}
+          width="150"
+          height="150"
+          alt={Map.get(@i18n, player_hero)}
+        />
+      </li>
+    </ul>
+
+    <div class="live_meta">
+      <.timestamp duration={@current_s} />
+      <.objectives_map objectives={
+        MatchLive.remaining_objectives(replay.match_info.objectives, @current_s)
+      } />
+      <.link href={"/live/#{replay.match_info.match_id}"}>Watch Live</.link>
+    </div>
+
+    <ul class="live_players">
+      <li :for={
+        player <-
+          Map.get(
+            replay.match_info.players |> Enum.group_by(& &1.team),
+            :k_ECitadelLobbyTeam_Team1
+          )
+          |> Enum.sort_by(fn player ->
+            [player.assigned_lane, player.party, player.player_slot]
+          end)
+      }>
+        <% player_team = if(player.team == :k_ECitadelLobbyTeam_Team0, do: "team0", else: "team1") %>
+        <% player_hero = Map.get(@heroes_by_id, player.hero_id) %>
+        <% image_path =
+          Map.get(@heroes, player_hero)
+          |> Map.get("m_strMinimapImage")
+          |> elem(1)
+          |> String.replace("file://{images}/", "/images/")
+          |> String.replace_suffix(".psd", "_psd.png") %>
+        <img
+          class={"mini-map_player " <> player_team}
+          src={image_path}
+          width="150"
+          height="150"
+          alt={Map.get(@i18n, player_hero)}
+        />
+      </li>
+    </ul>
   </li>
 </ul>
+
+<h2>Recent Matches</h2>
+
+<div data-id="MatchBlockBigContainer">
+  <%= for replay <- @replays do %>
+    <% player = replay.match_info.players |> List.first() %>
+    <% player_team = if(player.team == :k_ECitadelLobbyTeam_Team0, do: "team1", else: "team2") %>
+    <% player_hero = Map.get(@heroes_by_id, player.hero_id) %>
+    <% hero_image =
+      Map.get(@heroes, player_hero)
+      |> Map.get("m_strIconHeroCard")
+      |> elem(1)
+      |> String.replace("file://{images}/", "/images/")
+      |> String.replace_suffix(".psd", "_psd.png") %>
+    <% match_outcome =
+      if(Map.get(player, :team) == replay.match_info.winning_team, do: "win", else: "loss") %>
+    <div
+      :if={@current_match_id != replay.match_info.match_id}
+      class={"MatchBlockBig #{player_team} #{match_outcome}"}
+    >
+      <div class="teamStripe"></div>
+      <div class="gameContent">
+        <div class="gameInfo">
+          <div data-id="gameResultRow">
+            <span class="gameResult"><%= match_outcome |> String.capitalize() %></span>
+          </div>
+          <span class="heroName"><%= Map.get(@i18n, player_hero) %></span>
+          <span class="gameDuration"><.timestamp duration={replay.match_info.duration_s} /></span>
+          <span class="gameDate">
+            <%= Timex.from_unix(replay.match_info.start_time)
+            |> Timex.to_datetime("America/Toronto")
+            |> Timex.format!("{D}/{M}/{YYYY} {h12}:{m} {AM}") %>
+          </span>
+        </div>
+        <img data-id="HeroImage" class="heroImg" src={hero_image} />
+        <span class="gameNetworth">
+          <%= player.stats |> List.last() |> Map.get(:net_worth, 0) |> Integer.floor_div(1000) %>k
+        </span>
+      </div>
+      <.link href={"/match/#{replay.match_info.match_id}"} data-id="Overlay">
+        <div class="viewDetails">
+          <span>View Details <span class="arrowIcon"></span></span>
+        </div>
+      </.link>
+    </div>
+  <% end %>
+</div>

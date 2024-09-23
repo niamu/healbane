@@ -49,7 +49,7 @@ defmodule HealbaneWeb.MatchLive do
     end)
   end
 
-  defp remaining_objectives(objectives, current_s) do
+  def remaining_objectives(objectives, current_s) do
     objectives =
       objectives
       |> Enum.filter(fn objective ->
