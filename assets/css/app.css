@@ -3,6 +3,7 @@
 @import "post-game";
 @import "objective-map";
 @import "mini-map";
+@import "hud-top-bar";
 
 /*
 @import "tailwindcss/base";

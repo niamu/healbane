@@ -495,7 +495,7 @@ header {
 	opacity: 0.8;
 }
 
-.TeamNetworth {
+[data-id=GoldAndTimeContainer] .TeamNetworth {
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;
@@ -685,6 +685,7 @@ header {
 [data-id=ModBarGraph] progress {
 	width: 100%;
 	height: 6px;
+	border-radius: 6px;
 	margin: 1px 0;
 }
 

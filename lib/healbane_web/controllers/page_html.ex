@@ -6,7 +6,8 @@ defmodule HealbaneWeb.PageHTML do
   """
   use HealbaneWeb, :html
 
-  import HealbaneWeb.PostGame
+  import HealbaneWeb.CommonComponents
+  import HealbaneWeb.PostGameComponents
 
   embed_templates "page_html/*"
 end

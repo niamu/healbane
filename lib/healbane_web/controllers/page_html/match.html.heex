@@ -22,7 +22,8 @@
       <div data-id="Team1Networth" class="TeamNetworth">
         <div class="ScoreContainer">
           <span class="ScoreLabel">
-            <%= @players_by_team
+            <%= @match_details.match_info.players
+            |> Enum.group_by(& &1.team)
             |> Map.get(:k_ECitadelLobbyTeam_Team0)
             |> Enum.map(& &1.net_worth)
             |> Enum.sum()
@@ -38,7 +39,8 @@
       <div data-id="Team2Networth" class="TeamNetworth">
         <div class="ScoreContainer">
           <span class="ScoreLabel">
-            <%= @players_by_team
+            <%= @match_details.match_info.players
+            |> Enum.group_by(& &1.team)
             |> Map.get(:k_ECitadelLobbyTeam_Team1)
             |> Enum.map(& &1.net_worth)
             |> Enum.sum()
@@ -62,22 +64,16 @@
         </span>
       </div>
       <div class="players">
-        <div data-id="StatsTypeContainer" class="hidden">
-          <span class="StatsLabel Title">Player Stats</span>
-          <span class="StatsLabel SoulsStatLabel">Total Souls</span>
-          <span class="StatsLabel">Kills</span>
-          <span class="StatsLabel">Deaths</span>
-          <span class="StatsLabel">Assists</span>
-          <span class="StatsLabel">Player DMG</span>
-          <span class="StatsLabel">OBJ DMG</span>
-          <span class="StatsLabel">Healing</span>
-        </div>
+        <.stats_labels class="hidden" />
 
         <div class="scroller">
-          <.player
+          <.player_column
             :for={
               player <-
-                Map.get(@players_by_team, :k_ECitadelLobbyTeam_Team0)
+                Map.get(
+                  @match_details.match_info.players |> Enum.group_by(& &1.team),
+                  :k_ECitadelLobbyTeam_Team0
+                )
                 |> Enum.sort_by(fn player ->
                   [player.assigned_lane, player.party, player.player_slot]
                 end)
@@ -105,21 +101,12 @@
                 abilities_by_id={@abilities_by_id}
               />
             </:item_graphs>
-          </.player>
+          </.player_column>
         </div>
       </div>
     </div>
 
-    <div data-id="StatsTypeContainer">
-      <span class="StatsLabel Title">Player Stats</span>
-      <span class="StatsLabel SoulsStatLabel">Total Souls</span>
-      <span class="StatsLabel">Kills</span>
-      <span class="StatsLabel">Deaths</span>
-      <span class="StatsLabel">Assists</span>
-      <span class="StatsLabel">Player DMG</span>
-      <span class="StatsLabel">OBJ DMG</span>
-      <span class="StatsLabel">Healing</span>
-    </div>
+    <.stats_labels />
 
     <div data-id="Team2Players" class="TeamPlayersContainer">
       <div data-id="Team2TitleContainer" class="titleContainer">
@@ -134,22 +121,16 @@
         </span>
       </div>
       <div class="players">
-        <div data-id="StatsTypeContainer" class="hidden">
-          <span class="StatsLabel Title">Player Stats</span>
-          <span class="StatsLabel SoulsStatLabel">Total Souls</span>
-          <span class="StatsLabel">Kills</span>
-          <span class="StatsLabel">Deaths</span>
-          <span class="StatsLabel">Assists</span>
-          <span class="StatsLabel">Player DMG</span>
-          <span class="StatsLabel">OBJ DMG</span>
-          <span class="StatsLabel">Healing</span>
-        </div>
+        <.stats_labels class="hidden" />
 
         <div class="scroller">
-          <.player
+          <.player_column
             :for={
               player <-
-                Map.get(@players_by_team, :k_ECitadelLobbyTeam_Team1)
+                Map.get(
+                  @match_details.match_info.players |> Enum.group_by(& &1.team),
+                  :k_ECitadelLobbyTeam_Team1
+                )
                 |> Enum.sort_by(fn player ->
                   [player.assigned_lane, player.party, player.player_slot]
                 end)
@@ -177,7 +158,7 @@
                 abilities_by_id={@abilities_by_id}
               />
             </:item_graphs>
-          </.player>
+          </.player_column>
         </div>
       </div>
     </div>

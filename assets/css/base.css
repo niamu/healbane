@@ -152,10 +152,11 @@
 	--favBGColor1: #4D3800;
 	--favBGColor3: #664A00;
 	--favBGColor4: #735400;
-	--laneYellowColor: #CFAF3B;
+	--laneYellowColor: #F9D506;
 	--laneOrangeColor: #CE742D;
-	--laneBlueColor: #2DA0CA;
-	--lanePurpleColor: #CC2CC2;
+	--laneGreenColor: #309746;
+	--laneBlueColor: #437CDC;
+	--lanePurpleColor: #C241A8;
 	--atlasColor: #2092AE;
 	--astroColor: #8E4C31;
 	--bebopColor: #9F4734;
@@ -197,7 +198,6 @@ body {
 
 span {
 	color: var(--offWhite);
-	font-size: 18px;
 }
 
 button {
@@ -208,9 +208,6 @@ button {
 progress {
 	appearance: none;
 	display: block;
-	width: 320px;
-	height: 22px;
-	border-radius: 50px;
 	background-color: #000000ff;
 	border: none;
 	overflow: hidden;
@@ -219,6 +216,12 @@ progress {
 		background: black;
 	}
 
-	&::-webkit-progress-value { background: linear-gradient(to right, #222222FF, #444f52FF) }
-	&::-moz-progress-bar { background: linear-gradient(to right, #222222FF, #444f52FF) }
+	&::-webkit-progress-value {
+		transition: 0.25s linear all;
+		background: linear-gradient(to right, #222222FF, #444f52FF);
+	}
+	&::-moz-progress-bar {
+		transition: 0.25s linear all;
+		background: linear-gradient(to right, #222222FF, #444f52FF);
+	}
 }

@@ -1,108 +1,133 @@
 <h1>Watching Match <%= @match_details.match_info.match_id %></h1>
 
-<.timestamp duration={@current_s} />
+<div data-class="CitadelHudTopBar">
+  <div class="TeamNetworth">
+    <div data-id="TeamScoreFriendly" class="TeamScore team1">
+      <div class="ScoreBG"></div>
+      <div class="ScoreContainer">
+        <span class="ScoreLabel">
+          <% souls =
+            @match_details.match_info.players
+            |> Enum.group_by(& &1.team)
+            |> Map.get(:k_ECitadelLobbyTeam_Team0)
+            |> Enum.map(fn player ->
+              player
+              |> Map.get(:stats)
+              |> Enum.filter(fn stat -> stat.time_stamp_s < @current_s end)
+              |> List.last(%{})
+              |> Map.get(:net_worth, 0)
+            end)
+            |> Enum.sum() %>
+          <%= if souls >= 1000 do %>
+            <%= Integer.floor_div(souls, 1000) %>k
+          <% else %>
+            <%= souls %>
+          <% end %>
+        </span>
+      </div>
+    </div>
+    <div class="GameClock">
+      <span class="GameTime"><.timestamp duration={@current_s} /></span>
+    </div>
+    <div data-id="TeamScoreEnemy" class="TeamScore team2 Right">
+      <div class="ScoreBG"></div>
+      <div class="ScoreContainer">
+        <span class="ScoreLabel">
+          <% souls =
+            @match_details.match_info.players
+            |> Enum.group_by(& &1.team)
+            |> Map.get(:k_ECitadelLobbyTeam_Team1)
+            |> Enum.map(fn player ->
+              player
+              |> Map.get(:stats)
+              |> Enum.filter(fn stat -> stat.time_stamp_s < @current_s end)
+              |> List.last(%{})
+              |> Map.get(:net_worth, 0)
+            end)
+            |> Enum.sum() %>
+          <%= if souls >= 1000 do %>
+            <%= Integer.floor_div(souls, 1000) %>k
+          <% else %>
+            <%= souls %>
+          <% end %>
+        </span>
+      </div>
+    </div>
+  </div>
+  <.objectives_map objectives={@objectives} />
 
-<div id="ObjectivesMap">
-  <div class="ObjectiveCtn">
-    <div
-      id="Team1Core"
-      class={if Enum.member?(@objectives, "Team1Core") do "Alive " else "" end <> "Icon Team1 Core"}
-    >
+  <div data-id="TeamsContainer">
+    <div data-class="CitadelHudTopBarTeam" class="team1">
+      <div data-id="PlayerContents" class="PlayerContents">
+        <div data-id="PlayersContainer">
+          <.player
+            :for={
+              player <-
+                @match_details.match_info.players
+                |> Enum.group_by(& &1.team)
+                |> Map.get(:k_ECitadelLobbyTeam_Team0)
+                |> Enum.sort_by(fn player ->
+                  [player.assigned_lane, player.party, player.player_slot]
+                end)
+            }
+            player={player}
+            players_by_id={@players_by_id}
+            map_pos_by_player_slot={@map_pos_by_player_slot}
+            abilities={@abilities}
+            abilities_by_id={@abilities_by_id}
+            i18n={@i18n}
+            heroes_by_id={@heroes_by_id}
+            current_s={@current_s}
+          >
+            <:hero_image>
+              <.hero_image
+                hero_id={player.hero_id}
+                heroes_by_id={@heroes_by_id}
+                heroes={@heroes}
+                i18n={@i18n}
+                data-id="HeroImage"
+                class="heroImg"
+              />
+            </:hero_image>
+          </.player>
+        </div>
+      </div>
     </div>
-    <div
-      id="Team1Titan"
-      class={if Enum.member?(@objectives, "Team1Titan") do "Alive " else "" end <> "Icon Team1 Titan"}
-    >
-    </div>
-    <div
-      id="Team1Tier2_1"
-      class={if Enum.member?(@objectives, "Team1Tier2_1") do "Alive " else "" end <> "Icon Team1 Tier2"}
-    >
-    </div>
-    <div
-      id="Team1Tier2_2"
-      class={if Enum.member?(@objectives, "Team1Tier2_2") do "Alive " else "" end <> "Icon Team1 Tier2"}
-    >
-    </div>
-    <div
-      id="Team1Tier2_3"
-      class={if Enum.member?(@objectives, "Team1Tier2_3") do "Alive " else "" end <> "Icon Team1 Tier2"}
-    >
-    </div>
-    <div
-      id="Team1Tier2_4"
-      class={if Enum.member?(@objectives, "Team1Tier2_4") do "Alive " else "" end <> "Icon Team1 Tier2"}
-    >
-    </div>
-    <div
-      id="Team1Tier1_1"
-      class={if Enum.member?(@objectives, "Team1Tier1_1") do "Alive " else "" end <> "Icon Team1 Tier1"}
-    >
-    </div>
-    <div
-      id="Team1Tier1_2"
-      class={if Enum.member?(@objectives, "Team1Tier1_2") do "Alive " else "" end <> "Icon Team1 Tier1"}
-    >
-    </div>
-    <div
-      id="Team1Tier1_3"
-      class={if Enum.member?(@objectives, "Team1Tier1_3") do "Alive " else "" end <> "Icon Team1 Tier1"}
-    >
-    </div>
-    <div
-      id="Team1Tier1_4"
-      class={if Enum.member?(@objectives, "Team1Tier1_4") do "Alive " else "" end <> "Icon Team1 Tier1"}
-    >
-    </div>
-    <div
-      id="Team2Core"
-      class={if Enum.member?(@objectives, "Team2Core") do "Alive " else "" end <> "Icon Team2 Core"}
-    >
-    </div>
-    <div
-      id="Team2Titan"
-      class={if Enum.member?(@objectives, "Team2Titan") do "Alive " else "" end <> "Icon Team2 Titan"}
-    >
-    </div>
-    <div
-      id="Team2Tier2_1"
-      class={if Enum.member?(@objectives, "Team2Tier2_1") do "Alive " else "" end <> "Icon Team2 Tier2"}
-    >
-    </div>
-    <div
-      id="Team2Tier2_2"
-      class={if Enum.member?(@objectives, "Team2Tier2_2") do "Alive " else "" end <> "Icon Team2 Tier2"}
-    >
-    </div>
-    <div
-      id="Team2Tier2_3"
-      class={if Enum.member?(@objectives, "Team2Tier2_3") do "Alive " else "" end <> "Icon Team2 Tier2"}
-    >
-    </div>
-    <div
-      id="Team2Tier2_4"
-      class={if Enum.member?(@objectives, "Team2Tier2_4") do "Alive " else "" end <> "Icon Team2 Tier2"}
-    >
-    </div>
-    <div
-      id="Team2Tier1_1"
-      class={if Enum.member?(@objectives, "Team2Tier1_1") do "Alive " else "" end <> "Icon Team2 Tier1"}
-    >
-    </div>
-    <div
-      id="Team2Tier1_2"
-      class={if Enum.member?(@objectives, "Team2Tier1_2") do "Alive " else "" end <> "Icon Team2 Tier1"}
-    >
-    </div>
-    <div
-      id="Team2Tier1_3"
-      class={if Enum.member?(@objectives, "Team2Tier1_3") do "Alive " else "" end <> "Icon Team2 Tier1"}
-    >
-    </div>
-    <div
-      id="Team2Tier1_4"
-      class={if Enum.member?(@objectives, "Team2Tier1_4") do "Alive " else "" end <> "Icon Team2 Tier1"}
-    >
+    <div data-class="CitadelHudTopBarTeam" class="team2">
+      <div data-id="PlayerContents" class="PlayerContents">
+        <div data-id="PlayersContainer">
+          <.player
+            :for={
+              player <-
+                @match_details.match_info.players
+                |> Enum.group_by(& &1.team)
+                |> Map.get(:k_ECitadelLobbyTeam_Team1)
+                |> Enum.sort_by(fn player ->
+                  [player.assigned_lane, player.party, player.player_slot]
+                end)
+            }
+            player={player}
+            players_by_id={@players_by_id}
+            map_pos_by_player_slot={@map_pos_by_player_slot}
+            abilities={@abilities}
+            abilities_by_id={@abilities_by_id}
+            i18n={@i18n}
+            heroes_by_id={@heroes_by_id}
+            current_s={@current_s}
+          >
+            <:hero_image>
+              <.hero_image
+                hero_id={player.hero_id}
+                heroes_by_id={@heroes_by_id}
+                heroes={@heroes}
+                i18n={@i18n}
+                data-id="HeroImage"
+                class="heroImg"
+              />
+            </:hero_image>
+          </.player>
+        </div>
+      </div>
     </div>
   </div>
 </div>

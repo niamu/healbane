@@ -1,7 +1,8 @@
-#ObjectivesMap {
+[data-id=ObjectivesMap] {
 	position: relative;
 	width: 100px;
 	height: 100px;
+	margin: 1rem auto;
 }
 
 .ObjectiveCtn {
@@ -71,7 +72,7 @@
 	background-color: var(--colorEnemy);
 }
 
-#Team1Core {
+[data-id=Team1Core] {
 	margin-left: 35px;
 	margin-top: 0px;
 	width: 30px;
@@ -79,52 +80,52 @@
 	border-radius: 20px;
 }
 
-#Team1Titan {
+[data-id=Team1Titan] {
 	margin-left: 45px;
 	margin-top: 11px;
 }
 
-#Team1Tier2_1 {
+[data-id=Team1Tier2_1] {
 	margin-left: 15px;
 	margin-top: 25px;
 }
 
-#Team1Tier2_2 {
+[data-id=Team1Tier2_2] {
 	margin-left: 35px;
 	margin-top: 25px;
 }
 
-#Team1Tier2_3 {
+[data-id=Team1Tier2_3] {
 	margin-left: 55px;
 	margin-top: 25px;
 }
 
-#Team1Tier2_4 {
+[data-id=Team1Tier2_4] {
 	margin-left: 75px;
 	margin-top: 25px;
 }
 
-#Team1Tier1_1 {
+[data-id=Team1Tier1_1] {
 	margin-left: 11px;
 	margin-top: 39px;
 }
 
-#Team1Tier1_2 {
+[data-id=Team1Tier1_2] {
 	margin-left: 32px;
 	margin-top: 39px;
 }
 
-#Team1Tier1_3 {
+[data-id=Team1Tier1_3] {
 	margin-left: 57px;
 	margin-top: 39px;
 }
 
-#Team1Tier1_4 {
+[data-id=Team1Tier1_4] {
 	margin-left: 79px;
 	margin-top: 39px;
 }
 
-#Team2Core {
+[data-id=Team2Core] {
 	margin-left: 35px;
 	margin-top: 93px;
 	width: 30px;
@@ -132,47 +133,47 @@
 	border-radius: 20px;
 }
 
-#Team2Titan {
+[data-id=Team2Titan] {
 	margin-left: 45px;
 	margin-top: 79px;
 }
 
-#Team2Tier2_1 {
+[data-id=Team2Tier2_1] {
 	margin-left: 15px;
 	margin-top: 67px;
 }
 
-#Team2Tier2_2 {
+[data-id=Team2Tier2_2] {
 	margin-left: 35px;
 	margin-top: 67px;
 }
 
-#Team2Tier2_3 {
+[data-id=Team2Tier2_3] {
 	margin-left: 55px;
 	margin-top: 67px;
 }
 
-#Team2Tier2_4 {
+[data-id=Team2Tier2_4] {
 	margin-left: 75px;
 	margin-top: 67px;
 }
 
-#Team2Tier1_1 {
+[data-id=Team2Tier1_1] {
 	margin-left: 11px;
 	margin-top: 53px;
 }
 
-#Team2Tier1_2 {
+[data-id=Team2Tier1_2] {
 	margin-left: 32px;
 	margin-top: 53px;
 }
 
-#Team2Tier1_3 {
+[data-id=Team2Tier1_3] {
 	margin-left: 57px;
 	margin-top: 53px;
 }
 
-#Team2Tier1_4 {
+[data-id=Team2Tier1_4] {
 	margin-left: 79px;
 	margin-top: 53px;
 }

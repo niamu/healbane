@@ -1,7 +1,7 @@
 .mini-map {
 	--mm-size: 500px;
 	position: relative;
-	margin: 1rem;
+	margin: 2rem auto;
 	width: var(--mm-size);
 	height: var(--mm-size);
 	background-size: contain;
