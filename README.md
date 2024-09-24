@@ -1,5 +1,23 @@
 # Healbane
 
+A [Deadlock](https://playdeadlock.com) web server that parses meta replay files and renders them with replicated in-game components. Meta replay files are loaded from `defs/replays/`.
+
+## Screenshots
+
+### Home
+
+![Home](assets/screenshots/home.png)
+
+### Live Match
+
+![Live Match](assets/screenshots/live-match.png)
+
+### Post Game
+
+![Post Game](assets/screenshots/post-game.png)
+
+## Starting the Server
+
 To start the server:
 
   * Run `mix setup` to install and setup dependencies
