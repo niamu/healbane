@@ -111,7 +111,7 @@ defmodule HealbaneWeb.MatchLive do
     {:ok, match_details} = Healbane.decode_match_details(match_meta.match_details)
 
     heroes =
-      File.read!("/Users/niamu/Desktop/Deadlock/exported/scripts/heroes.vdata")
+      File.read!("./defs/heroes.vdata")
       |> KeyValues3.decode!()
 
     heroes_by_id =
@@ -160,7 +160,7 @@ defmodule HealbaneWeb.MatchLive do
     players_by_id = Steam.players_by_id(steamids)
 
     heroes =
-      File.read!("/Users/niamu/Desktop/Deadlock/exported/scripts/heroes.vdata")
+      File.read!("./defs/heroes.vdata")
       |> KeyValues3.decode!()
 
     heroes_by_id =
@@ -180,7 +180,7 @@ defmodule HealbaneWeb.MatchLive do
       end
 
     abilities =
-      File.read!("/Users/niamu/Desktop/Deadlock/exported/scripts/abilities.vdata")
+      File.read!("./defs/abilities.vdata")
       |> KeyValues3.decode!()
 
     abilities_by_id =

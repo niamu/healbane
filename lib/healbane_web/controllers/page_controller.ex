@@ -23,7 +23,7 @@ defmodule HealbaneWeb.PageController do
     {:ok, match_details} = Healbane.decode_match_details(match_meta.match_details)
 
     heroes =
-      File.read!("/Users/niamu/Desktop/Deadlock/exported/scripts/heroes.vdata")
+      File.read!("./defs/heroes.vdata")
       |> KeyValues3.decode!()
 
     heroes_by_id =
@@ -33,7 +33,7 @@ defmodule HealbaneWeb.PageController do
       |> List.foldl(%{}, fn {k, v}, acc -> Map.put(acc, Map.get(v, "m_HeroID"), k) end)
 
     abilities =
-      File.read!("/Users/niamu/Desktop/Deadlock/exported/scripts/abilities.vdata")
+      File.read!("./defs/abilities.vdata")
       |> KeyValues3.decode!()
 
     abilities_by_id =

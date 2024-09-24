@@ -20,7 +20,7 @@ defmodule HealbaneWeb.MatchesLive do
       end)
 
     heroes =
-      File.read!("/Users/niamu/Desktop/Deadlock/exported/scripts/heroes.vdata")
+      File.read!("./defs/heroes.vdata")
       |> KeyValues3.decode!()
 
     heroes_by_id =

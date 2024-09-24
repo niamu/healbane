@@ -14,7 +14,9 @@
   <header>
     <h1>Match <%= @match_details.match_info.match_id %></h1>
     <h2>
-      <%= @match_details.match_info.start_time |> DateTime.from_unix!() |> DateTime.to_string() %>
+      <%= Timex.from_unix(@match_details.match_info.start_time)
+      |> Timex.to_datetime("America/Toronto")
+      |> Timex.format!("{D}/{M}/{YYYY} {h12}:{m} {AM}") %>
     </h2>
   </header>
   <div data-id="ScoreContainer">
