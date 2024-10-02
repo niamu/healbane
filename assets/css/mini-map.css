@@ -45,6 +45,12 @@
 		& [data-lane-number="3"] { stroke: var(--laneGreenColor); }
 		& [data-lane-number="4"] { stroke: var(--laneBlueColor); }
 		& [data-lane-number="6"] { stroke: var(--lanePurpleColor); }
+
+		& rect { stroke: #FFF; fill: color-mix(in srgb, #666, #000) }
+		& rect[data-lane-number="1"] { stroke: color-mix(in srgb, var(--laneYellowColor), #000); fill: var(--laneYellowColor); }
+		& rect[data-lane-number="3"] { stroke: color-mix(in srgb, var(--laneGreenColor), #000); fill: var(--laneGreenColor); }
+		& rect[data-lane-number="4"] { stroke: color-mix(in srgb, var(--laneBlueColor), #000); fill: var(--laneBlueColor); }
+		& rect[data-lane-number="6"] { stroke: color-mix(in srgb, var(--lanePurpleColor), #000); fill: var(--lanePurpleColor); }
 	}
 
 	& .player {
@@ -56,7 +62,7 @@
 		padding: 2px;
 		border-radius: 50%;
 		translate: -18px -18px;
-		z-index: 2;
+		z-index: 3;
 		box-shadow: 0 0 3px #000;
 		transition: left 1s linear, top 1s linear, scale 0.125s ease-in-out;
 
@@ -66,7 +72,7 @@
 			animation-iteration-count: 1;
 			animation-fill-mode: forwards;
 			animation-direction: normal;
-			z-index: 0;
+			z-index: 2;
 			pointer-events: none;
 		}
 
@@ -75,7 +81,7 @@
 		}
 
 		&:hover {
-			z-index: 3;
+			z-index: 4;
 			scale: 1.4;
 		}
 

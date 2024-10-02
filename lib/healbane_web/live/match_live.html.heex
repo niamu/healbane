@@ -133,6 +133,26 @@
 </div>
 
 <div class="mini-map">
+  <svg class="mini-map_lanes" viewbox="-8960 -11520 17920 23040" width="500" height="500">
+    <path :for={lane_path <- @lane_paths}
+          data-lane-number={"#{Map.get(lane_path, "lane_number")}"}
+          d={"M 0 0 #{Map.get(lane_path, "path_nodes")}"}
+          transform={"scale(1, -1) translate(#{Enum.at(Map.get(lane_path, "origin"), 0) } #{Enum.at(Map.get(lane_path, "origin"), 1) })"}
+          stroke="red"
+          stroke-width="100"
+          fill="transparent" />
+    <rect :for={o <- @objective_locations}
+          data-lane-number={"#{Map.get(o, "lane_number")}"}
+          data-team={"#{Map.get(o, "team")}"}
+          x={"#{Enum.at(Map.get(o, "origin"), 0)}"}
+          y={"#{Enum.at(Map.get(o, "origin"), 1)}"}
+          width="500"
+          height="500"
+          transform={"scale(1, -1) rotate(45, #{Enum.at(Map.get(o, "origin"), 0) + 500}, #{Enum.at(Map.get(o, "origin"), 1) - 100})"}
+          stroke="red"
+          stroke-width="150"
+          fill="red" />
+  </svg>
   <%= for path <- @match_details.match_info.match_paths.paths do %>
     <% {image_path, image_alt, team} = Map.get(@mm_by_player_slot, path.player_slot) %>
     <% team =

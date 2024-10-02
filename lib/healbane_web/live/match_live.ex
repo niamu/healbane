@@ -12,9 +12,9 @@ defmodule HealbaneWeb.MatchLive do
 
     minimap_extents = %{
       x_min: -8960,
-      y_min: -8832,
+      y_min: -11520,
       x_max: 8960,
-      y_max: 8832
+      y_max: 11520
     }
 
     List.foldl(match_details.match_info.match_paths.paths, %{}, fn path, acc ->
@@ -39,9 +39,9 @@ defmodule HealbaneWeb.MatchLive do
           %{x: old_x, y: old_y, health: health}
         else
           if old_health == 0 && idx > 0 do
-            %{x: x, y: y, health: health, respawning: true}
+            %{x: x, y: 100 - y, health: health, respawning: true}
           else
-            %{x: x, y: y, health: health}
+            %{x: x, y: 100 - y, health: health}
           end
         end
 
@@ -192,6 +192,26 @@ defmodule HealbaneWeb.MatchLive do
         Map.put(acc, k, Regex.replace(~r/(.*?)\/.*$/, v, "\\g{1}"))
       end)
 
+    lane_paths = File.read!("./defs/mini-map/lane_paths.json")
+      |> :json.decode()
+      |> List.foldl([], fn lane_map, outer_acc ->
+        lane_map = Map.update!(lane_map, "path_nodes", fn path_nodes ->
+          List.foldl(path_nodes, [], fn [x, y, _z, x1, y1, _z1, x2, y2, _z2], acc ->
+            acc ++ [[
+                    x, y,
+                    x + x1, y + y1,
+                    x + x2, y + y2
+                  ]]
+          end)
+          |> Enum.map(fn [x, y, x1, y1, x2, y2] -> "C #{x} #{y}, #{x1} #{y1}, #{x2} #{y2}" end)
+          |> Enum.join(" ")
+        end)
+        outer_acc ++ [lane_map]
+      end)
+
+    objective_locations = File.read!("./defs/mini-map/objectives.json")
+      |> :json.decode()
+
     socket =
       socket
       |> assign(:page_title, "Watch #{match_id}")
@@ -208,6 +228,8 @@ defmodule HealbaneWeb.MatchLive do
       |> assign(:objectives, objectives)
       |> assign(:duration_s, match_details.match_info.duration_s)
       |> assign(:current_s, nil)
+      |> assign(:lane_paths, lane_paths)
+      |> assign(:objective_locations, objective_locations)
 
     if current_match_id == match_id do
       {:ok,
