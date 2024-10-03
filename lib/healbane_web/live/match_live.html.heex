@@ -139,9 +139,10 @@
           d={"M 0 0 #{Map.get(lane_path, "path_nodes")}"}
           transform={"scale(1, -1) translate(#{Enum.at(Map.get(lane_path, "origin"), 0) } #{Enum.at(Map.get(lane_path, "origin"), 1) })"}
           stroke="red"
-          stroke-width="100"
+          stroke-width="150"
           fill="transparent" />
     <rect :for={o <- @objective_locations}
+          :if={Map.get(o, "id", true) == true || Enum.member?(@objectives, Map.get(o, "id"))}
           data-lane-number={"#{Map.get(o, "lane_number")}"}
           data-team={"#{Map.get(o, "team")}"}
           x={"#{Enum.at(Map.get(o, "origin"), 0)}"}

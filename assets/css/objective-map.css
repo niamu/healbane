@@ -3,6 +3,7 @@
 	width: 100px;
 	height: 100px;
 	margin: 1rem auto;
+	scale: 1 -1;
 }
 
 .ObjectiveCtn {
